@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
 import { AnimalsService } from './animals.service';
-import { Animal } from '../../types/Anima';
+import { Animal } from '../../types/Animal';
 import { AnimalDto } from './dto/animal.dto';
 
 @Controller('animals')

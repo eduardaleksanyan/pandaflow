@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Animal } from '../../types/Anima';
+import { Animal } from '../../types/Animal';
 import { AnimalDto } from './dto/animal.dto';
 
 @Injectable()
