@@ -1,23 +1,32 @@
 function parseMatrix(input) {
   const rows = input.split(';');
-  return rows.map(row => row.split(',').map(Number));
+  const matrix = rows.map(row => row.split(',').map(Number));
+
+  const numRows = matrix.length;
+  const numCols = matrix[0].length;
+  if (numRows > 100 || numCols > 100) {
+    console.error('Matrix size exceeds the maximum limit (100x100).');
+    process.exit(1);
+  }
+
+  return matrix;
 }
 
 function findRegions(matrix) {
   const visited = new Set();
   let regions = 0;
 
-  function dfs(row, col) {
+  function exploreRegion(row, col) {
     if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length) {
       return;
     }
 
     if (matrix[row][col] === 1 && !visited.has(`${row}-${col}`)) {
       visited.add(`${row}-${col}`);
-      dfs(row - 1, col);
-      dfs(row + 1, col);
-      dfs(row, col - 1);
-      dfs(row, col + 1);
+      exploreRegion(row - 1, col);
+      exploreRegion(row + 1, col);
+      exploreRegion(row, col - 1);
+      exploreRegion(row, col + 1);
     }
   }
 
@@ -25,7 +34,7 @@ function findRegions(matrix) {
     for (let j = 0; j < matrix[0].length; j++) {
       if (matrix[i][j] === 1 && !visited.has(`${i}-${j}`)) {
         regions++;
-        dfs(i, j);
+        exploreRegion(i, j);
       }
     }
   }
